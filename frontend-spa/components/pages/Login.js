@@ -1,0 +1,181 @@
+import icons from '../icons.js'
+
+export default {
+  name: 'LoginPage',
+  data() {
+    return {
+      icons,
+      form: { email: '', password: '' },
+      showPassword: false,
+      loading: false,
+      error: '',
+    }
+  },
+  methods: {
+    async handleLogin() {
+      this.error = ''
+      if (!this.form.email || !this.form.password) {
+        this.error = 'Email dan password wajib diisi.'
+        return
+      }
+      this.loading = true
+      try {
+        const res = await axios.post('/api/auth/login', {
+          email:    this.form.email,
+          password: this.form.password,
+        })
+        const { token, user } = res.data
+        localStorage.setItem('token', token)
+        localStorage.setItem('user', JSON.stringify(user))
+        this.$router.push('/dashboard')
+      } catch (err) {
+        this.error = err.response?.data?.message ?? 'Terjadi kesalahan. Coba lagi.'
+      } finally {
+        this.loading = false
+      }
+    },
+    fillDemo() {
+      this.form.email    = 'admin@inventorypc.com'
+      this.form.password = 'password123'
+    }
+  },
+  template: `
+    <div class="login-page">
+
+      <!-- Left panel: branding -->
+      <div class="login-brand">
+        <div class="login-brand-inner">
+          <div class="login-brand-badge">
+            <span v-html="icons.logo"></span>
+          </div>
+          <h2>Kelola inventaris<br>komponen PC dengan<br><span>mudah dan efisien.</span></h2>
+          <p>Pantau stok, kelola transaksi, dan kendalikan seluruh gudang dari satu dasbor terpusat.</p>
+
+          <div class="login-stats">
+            <div class="login-stat">
+              <div class="login-stat-value">7+</div>
+              <div class="login-stat-label">Entitas Data</div>
+            </div>
+            <div class="login-stat-divider"></div>
+            <div class="login-stat">
+              <div class="login-stat-value">RESTful</div>
+              <div class="login-stat-label">API Backend</div>
+            </div>
+            <div class="login-stat-divider"></div>
+            <div class="login-stat">
+              <div class="login-stat-value">Realtime</div>
+              <div class="login-stat-label">Stok Update</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right panel: form -->
+      <div class="login-form-panel">
+        <div class="login-card">
+
+          <!-- Logo mobile -->
+          <div class="login-card-logo">
+            <div class="login-logo-icon" v-html="icons.logo"></div>
+            <span>E-Inventory PC</span>
+          </div>
+
+          <!-- Heading -->
+          <div class="login-card-heading">
+            <h1>Selamat Datang Kembali</h1>
+            <p>Masukkan kredensial untuk mengakses sistem inventaris</p>
+          </div>
+
+          <!-- Alert error -->
+          <div v-if="error" class="alert alert-danger" style="display:flex;align-items:center;gap:8px;">
+            <span v-html="icons.warning" style="flex-shrink:0;"></span>
+            {{ error }}
+          </div>
+
+          <!-- Form -->
+          <form @submit.prevent="handleLogin">
+
+            <div class="form-group">
+              <label class="form-label">Alamat Email</label>
+              <div class="input-group">
+                <span class="input-group-icon" v-html="icons.user"></span>
+                <input
+                  id="input-email"
+                  type="email"
+                  class="form-control"
+                  v-model="form.email"
+                  placeholder="admin@inventorypc.com"
+                  autocomplete="email"
+                  :class="{ 'is-invalid': error && !form.email }"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <div class="input-group">
+                <span class="input-group-icon" v-html="icons.bookmark" style="opacity:0.6;"></span>
+                <input
+                  id="input-password"
+                  :type="showPassword ? 'text' : 'password'"
+                  class="form-control"
+                  v-model="form.password"
+                  placeholder="Masukkan password"
+                  autocomplete="current-password"
+                  :class="{ 'is-invalid': error && !form.password }"
+                />
+                <span class="input-group-suffix">
+                  <button
+                    type="button"
+                    class="eye-toggle"
+                    @click="showPassword = !showPassword"
+                    :title="showPassword ? 'Sembunyikan password' : 'Tampilkan password'"
+                  >
+                    <span v-if="showPassword" v-html="icons.eyeOff"></span>
+                    <span v-else v-html="icons.eye"></span>
+                  </button>
+                </span>
+              </div>
+            </div>
+
+            <button
+              id="btn-login"
+              type="submit"
+              class="btn btn-primary btn-block btn-lg"
+              style="margin-top:8px;"
+              :disabled="loading"
+            >
+              <span v-if="loading" class="spinner"></span>
+              <span v-else v-html="icons.arrowDown" style="transform:rotate(-90deg);display:flex;"></span>
+              <span>{{ loading ? 'Memverifikasi...' : 'Masuk ke Sistem' }}</span>
+            </button>
+
+          </form>
+
+          <!-- Demo credentials -->
+          <div class="login-demo">
+            <div class="login-demo-header">
+              <span v-html="icons.check" style="color:var(--success);"></span>
+              <span>Akun Demo Tersedia</span>
+            </div>
+            <div class="login-demo-creds">
+              <div>
+                <span class="login-demo-key">Email</span>
+                <span class="login-demo-val">admin@inventorypc.com</span>
+              </div>
+              <div style="margin-top:4px;">
+                <span class="login-demo-key">Password</span>
+                <span class="login-demo-val">password123</span>
+              </div>
+            </div>
+            <button type="button" class="login-demo-fill" @click="fillDemo">
+              Isi otomatis
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  `
+}
