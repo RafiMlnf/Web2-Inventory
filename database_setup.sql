@@ -3,11 +3,25 @@
 -- Project: UAS Pemrograman Web 2 - E-Inventory Part PC
 -- ============================================================
 
+-- Hapus database lama jika ada agar bersih saat di-import ulang
+DROP DATABASE IF EXISTS inventory_part_pc_db;
+
 CREATE DATABASE IF NOT EXISTS inventory_part_pc_db
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
 USE inventory_part_pc_db;
+
+-- Hapus tabel-tabel lama jika ada (berguna jika di-import ke database yang sudah ada)
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS transaksi_keluar;
+DROP TABLE IF EXISTS transaksi_masuk;
+DROP TABLE IF EXISTS part;
+DROP TABLE IF EXISTS supplier;
+DROP TABLE IF EXISTS brand;
+DROP TABLE IF EXISTS kategori_part;
+DROP TABLE IF EXISTS users;
+SET FOREIGN_KEY_CHECKS = 1;
 
 -- ============================================================
 -- TABEL 1: users
@@ -142,14 +156,14 @@ INSERT INTO kategori_part (nama_kategori, deskripsi) VALUES
 INSERT INTO brand (nama_brand, logo_url) VALUES
   ('Intel', 'https://www.google.com/s2/favicons?domain=intel.com&sz=128'),
   ('AMD', 'https://www.google.com/s2/favicons?domain=amd.com&sz=128'),
-  ('ASUS', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/ASUS_Logo.svg/120px-ASUS_Logo.svg.png'),
+  ('ASUS', 'https://www.google.com/s2/favicons?domain=asus.com&sz=128'),
   ('MSI', 'https://www.google.com/s2/favicons?domain=msi.com&sz=128'),
   ('Corsair', 'https://www.google.com/s2/favicons?domain=corsair.com&sz=128'),
   ('Samsung', 'https://www.google.com/s2/favicons?domain=samsung.com&sz=128'),
   ('Western Digital', 'https://www.google.com/s2/favicons?domain=westerndigital.com&sz=128'),
   ('Seagate', 'https://www.google.com/s2/favicons?domain=seagate.com&sz=128'),
-  ('EVGA', 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/EVGA_Logo.svg/120px-EVGA_Logo.svg.png'),
-  ('Gigabyte', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Gigabyte_Technology_logo_20150905.svg/120px-Gigabyte_Technology_logo_20150905.svg.png'),
+  ('EVGA', 'https://www.google.com/s2/favicons?domain=evga.com&sz=128'),
+  ('Gigabyte', 'https://www.google.com/s2/favicons?domain=gigabyte.com&sz=128'),
   ('Kingston', 'https://www.google.com/s2/favicons?domain=kingston.com&sz=128'),
   ('Noctua', 'https://www.google.com/s2/favicons?domain=noctua.at&sz=128'),
   ('DeepCool', 'https://www.google.com/s2/favicons?domain=deepcool.com&sz=128'),
@@ -164,44 +178,44 @@ INSERT INTO supplier (nama_supplier, alamat, no_telp, email, kontak_person) VALU
   ('PT. Global Tech Supply',  'Jl. Sudirman Kav.22, Jakarta',    '021-5702200', 'supply@globaltech.co.id',   'Fitri Handayani');
 
 -- Part (data dummy realistis)
-INSERT INTO part (kode_part, nama_part, kategori_id, brand_id, supplier_id, spesifikasi, harga_beli, harga_jual, stok, stok_minimum, satuan, status) VALUES
+INSERT INTO part (kode_part, nama_part, kategori_id, brand_id, supplier_id, spesifikasi, harga_beli, harga_jual, stok, stok_minimum, satuan, gambar_url, status) VALUES
   -- Processor
-  ('CPU-AMD-001', 'AMD Ryzen 5 5600X',    1, 2, 1, 'Socket AM4, 6 Core 12 Thread, 3.7GHz-4.6GHz, TDP 65W',              2650000, 3100000, 15, 3, 'pcs', 'aktif'),
-  ('CPU-AMD-002', 'AMD Ryzen 7 5800X',    1, 2, 1, 'Socket AM4, 8 Core 16 Thread, 3.8GHz-4.7GHz, TDP 105W',             4100000, 4800000, 8,  3, 'pcs', 'aktif'),
-  ('CPU-INT-001', 'Intel Core i5-12400F', 1, 1, 1, 'Socket LGA1700, 6 Core 12 Thread, 2.5GHz-4.4GHz, TDP 65W',          2200000, 2750000, 12, 3, 'pcs', 'aktif'),
-  ('CPU-INT-002', 'Intel Core i7-12700K', 1, 1, 1, 'Socket LGA1700, 12 Core 20 Thread, 3.6GHz-5.0GHz, TDP 125W',        4800000, 5500000, 5,  3, 'pcs', 'aktif'),
+  ('CPU-AMD-001', 'AMD Ryzen 5 5600X',    1, 2, 1, 'Socket AM4, 6 Core 12 Thread, 3.7GHz-4.6GHz, TDP 65W',              2650000, 3100000, 15, 3, 'pcs', 'https://m.media-amazon.com/images/I/51MFe1hs5AL._AC_SL1500_.jpg', 'aktif'),
+  ('CPU-AMD-002', 'AMD Ryzen 7 5800X',    1, 2, 1, 'Socket AM4, 8 Core 16 Thread, 3.8GHz-4.7GHz, TDP 105W',             4100000, 4800000, 8,  3, 'pcs', 'https://m.media-amazon.com/images/I/51oWBjxqHvL._AC_SL1500_.jpg', 'aktif'),
+  ('CPU-INT-001', 'Intel Core i5-12400F', 1, 1, 1, 'Socket LGA1700, 6 Core 12 Thread, 2.5GHz-4.4GHz, TDP 65W',          2200000, 2750000, 12, 3, 'pcs', 'https://m.media-amazon.com/images/I/61iyHIe0vnL._AC_SL1500_.jpg', 'aktif'),
+  ('CPU-INT-002', 'Intel Core i7-12700K', 1, 1, 1, 'Socket LGA1700, 12 Core 20 Thread, 3.6GHz-5.0GHz, TDP 125W',        4800000, 5500000, 5,  3, 'pcs', 'https://m.media-amazon.com/images/I/617HL0dR0iL._AC_SL1500_.jpg', 'aktif'),
 
   -- RAM
-  ('RAM-COR-001', 'Corsair Vengeance LPX 16GB DDR4', 2, 5, 2, 'DDR4 3200MHz, CL16, 2x8GB Kit, 1.35V',                  650000,  850000,  20, 5, 'pcs', 'aktif'),
-  ('RAM-COR-002', 'Corsair Dominator 32GB DDR5',      2, 5, 2, 'DDR5 5200MHz, CL38, 2x16GB Kit, 1.25V',                 1800000, 2200000, 7,  3, 'pcs', 'aktif'),
-  ('RAM-KIN-001', 'Kingston Fury Beast 16GB DDR4',    2, 11, 2, 'DDR4 3600MHz, CL18, 2x8GB Kit, 1.35V',                 600000,  780000,  18, 5, 'pcs', 'aktif'),
+  ('RAM-COR-001', 'Corsair Vengeance LPX 16GB DDR4', 2, 5, 2, 'DDR4 3200MHz, CL16, 2x8GB Kit, 1.35V',                  650000,  850000,  20, 5, 'pcs', 'https://m.media-amazon.com/images/I/71GEnQXEb3L._AC_SL1500_.jpg', 'aktif'),
+  ('RAM-COR-002', 'Corsair Dominator 32GB DDR5',      2, 5, 2, 'DDR5 5200MHz, CL38, 2x16GB Kit, 1.25V',                 1800000, 2200000, 7,  3, 'pcs', 'https://m.media-amazon.com/images/I/71gHAqORv3L._AC_SL1500_.jpg', 'aktif'),
+  ('RAM-KIN-001', 'Kingston Fury Beast 16GB DDR4',    2, 11, 2, 'DDR4 3600MHz, CL18, 2x8GB Kit, 1.35V',                 600000,  780000,  18, 5, 'pcs', 'https://m.media-amazon.com/images/I/71SDFMfpWCL._AC_SL1500_.jpg', 'aktif'),
 
   -- Storage
-  ('SSD-SAM-001', 'Samsung 970 EVO Plus 1TB NVMe',   3, 6, 3, 'M.2 PCIe 3.0, R:3500MB/s W:3300MB/s, TLC NAND',         1150000, 1450000, 22, 5, 'pcs', 'aktif'),
-  ('SSD-SAM-002', 'Samsung 980 Pro 2TB NVMe',         3, 6, 3, 'M.2 PCIe 4.0, R:7000MB/s W:5100MB/s, MLC NAND',         2300000, 2800000, 10, 3, 'pcs', 'aktif'),
-  ('HDD-WD-001',  'WD Blue 2TB 3.5" HDD',             3, 7, 3, 'SATA III, 5400RPM, 256MB Cache, CMR',                   650000,  820000,  14, 5, 'pcs', 'aktif'),
-  ('HDD-SEA-001', 'Seagate Barracuda 4TB HDD',         3, 8, 3, 'SATA III, 5400RPM, 256MB Cache, SMR',                   950000,  1200000, 8,  3, 'pcs', 'aktif'),
+  ('SSD-SAM-001', 'Samsung 970 EVO Plus 1TB NVMe',   3, 6, 3, 'M.2 PCIe 3.0, R:3500MB/s W:3300MB/s, TLC NAND',         1150000, 1450000, 22, 5, 'pcs', 'https://m.media-amazon.com/images/I/71+J1VmCPNL._AC_SL1500_.jpg', 'aktif'),
+  ('SSD-SAM-002', 'Samsung 980 Pro 2TB NVMe',         3, 6, 3, 'M.2 PCIe 4.0, R:7000MB/s W:5100MB/s, MLC NAND',         2300000, 2800000, 10, 3, 'pcs', 'https://m.media-amazon.com/images/I/71RkOhNnAXL._AC_SL1500_.jpg', 'aktif'),
+  ('HDD-WD-001',  'WD Blue 2TB 3.5" HDD',             3, 7, 3, 'SATA III, 5400RPM, 256MB Cache, CMR',                   650000,  820000,  14, 5, 'pcs', 'https://m.media-amazon.com/images/I/71hMpE0mF1L._AC_SL1500_.jpg', 'aktif'),
+  ('HDD-SEA-001', 'Seagate Barracuda 4TB HDD',         3, 8, 3, 'SATA III, 5400RPM, 256MB Cache, SMR',                   950000,  1200000, 8,  3, 'pcs', 'https://m.media-amazon.com/images/I/81YHDtDKmQL._AC_SL1500_.jpg', 'aktif'),
 
   -- Motherboard
-  ('MB-ASU-001', 'ASUS ROG Strix B550-F',    4, 3, 1, 'Socket AM4, ATX, DDR4, PCIe 4.0, 2.5G LAN, WiFi 6',              2350000, 2900000, 6,  2, 'pcs', 'aktif'),
-  ('MB-MSI-001', 'MSI MAG B660M Mortar',     4, 4, 1, 'Socket LGA1700, mATX, DDR4, PCIe 4.0, 2.5G LAN',                 1450000, 1800000, 9,  2, 'pcs', 'aktif'),
-  ('MB-GIG-001', 'Gigabyte B550 AORUS Pro',  4, 10, 1, 'Socket AM4, ATX, DDR4, PCIe 4.0, 2.5G LAN, WiFi 6',             2100000, 2600000, 4,  2, 'pcs', 'aktif'),
+  ('MB-ASU-001', 'ASUS ROG Strix B550-F',    4, 3, 1, 'Socket AM4, ATX, DDR4, PCIe 4.0, 2.5G LAN, WiFi 6',              2350000, 2900000, 6,  2, 'pcs', 'https://m.media-amazon.com/images/I/91-hBoSmKEL._AC_SL1500_.jpg', 'aktif'),
+  ('MB-MSI-001', 'MSI MAG B660M Mortar',     4, 4, 1, 'Socket LGA1700, mATX, DDR4, PCIe 4.0, 2.5G LAN',                 1450000, 1800000, 9,  2, 'pcs', 'https://m.media-amazon.com/images/I/71T+qIBJAkL._AC_SL1500_.jpg', 'aktif'),
+  ('MB-GIG-001', 'Gigabyte B550 AORUS Pro',  4, 10, 1, 'Socket AM4, ATX, DDR4, PCIe 4.0, 2.5G LAN, WiFi 6',             2100000, 2600000, 4,  2, 'pcs', 'https://m.media-amazon.com/images/I/91WKRtfmJ0L._AC_SL1500_.jpg', 'aktif'),
 
   -- PSU
-  ('PSU-COR-001', 'Corsair RM750x 750W Gold', 5, 5, 4, '80+ Gold, Fully Modular, 750W, 10yr Warranty',                  1350000, 1700000, 11, 3, 'pcs', 'aktif'),
-  ('PSU-EVG-001', 'EVGA SuperNOVA 850W Platinum', 5, 9, 4, '80+ Platinum, Fully Modular, 850W, 10yr Warranty',           1700000, 2100000, 5,  2, 'pcs', 'aktif'),
+  ('PSU-COR-001', 'Corsair RM750x 750W Gold', 5, 5, 4, '80+ Gold, Fully Modular, 750W, 10yr Warranty',                  1350000, 1700000, 11, 3, 'pcs', 'https://m.media-amazon.com/images/I/71Gp3lPADeL._AC_SL1500_.jpg', 'aktif'),
+  ('PSU-EVG-001', 'EVGA SuperNOVA 850W Platinum', 5, 9, 4, '80+ Platinum, Fully Modular, 850W, 10yr Warranty',           1700000, 2100000, 5,  2, 'pcs', 'https://m.media-amazon.com/images/I/81TjKNKPr6L._AC_SL1500_.jpg', 'aktif'),
 
   -- VGA
-  ('VGA-ASU-001', 'ASUS TUF RX 6700 XT 12GB', 6, 3, 4, 'RDNA2, 12GB GDDR6, PCIe 4.0, 3x DP + 1x HDMI, 180W TDP',     5500000, 6500000, 4,  2, 'pcs', 'aktif'),
-  ('VGA-MSI-001', 'MSI RTX 3070 Gaming X 8GB', 6, 4, 4, 'Ampere, 8GB GDDR6, PCIe 4.0, 3x DP + 1x HDMI, 220W TDP',    7200000, 8500000, 3,  2, 'pcs', 'aktif'),
+  ('VGA-ASU-001', 'ASUS TUF RX 6700 XT 12GB', 6, 3, 4, 'RDNA2, 12GB GDDR6, PCIe 4.0, 3x DP + 1x HDMI, 180W TDP',     5500000, 6500000, 4,  2, 'pcs', 'https://m.media-amazon.com/images/I/71OOHy5RRWL._AC_SL1500_.jpg', 'aktif'),
+  ('VGA-MSI-001', 'MSI RTX 3070 Gaming X 8GB', 6, 4, 4, 'Ampere, 8GB GDDR6, PCIe 4.0, 3x DP + 1x HDMI, 220W TDP',    7200000, 8500000, 3,  2, 'pcs', 'https://m.media-amazon.com/images/I/71w2UrLmhOL._AC_SL1500_.jpg', 'aktif'),
 
   -- Cooling
-  ('CLG-NOC-001', 'Noctua NH-D15 CPU Cooler',  7, 12, 2, 'Dual Tower, 2x NF-A15 PWM, TDP 250W+, Socket LGA1700/AM5',   1200000, 1550000, 8,  3, 'pcs', 'aktif'),
-  ('CLG-DEP-001', 'DeepCool AK620 CPU Cooler', 7, 13, 2, 'Dual Tower, 2x FK120P, TDP 260W, Socket LGA1700/AM5',        650000,  850000,  12, 3, 'pcs', 'aktif'),
+  ('CLG-NOC-001', 'Noctua NH-D15 CPU Cooler',  7, 12, 2, 'Dual Tower, 2x NF-A15 PWM, TDP 250W+, Socket LGA1700/AM5',   1200000, 1550000, 8,  3, 'pcs', 'https://m.media-amazon.com/images/I/71I6LMB2g3L._AC_SL1500_.jpg', 'aktif'),
+  ('CLG-DEP-001', 'DeepCool AK620 CPU Cooler', 7, 13, 2, 'Dual Tower, 2x FK120P, TDP 260W, Socket LGA1700/AM5',        650000,  850000,  12, 3, 'pcs', 'https://m.media-amazon.com/images/I/51rVcjLvKQL._AC_SL1500_.jpg', 'aktif'),
 
   -- Casing
-  ('CAS-FRA-001', 'Fractal Design Meshify C', 8, 14, 2, 'Mid Tower, Mesh Front, 2x Fans included, ATX/mATX/ITX',        850000,  1100000, 6,  2, 'pcs', 'aktif'),
-  ('CAS-BEQ-001', 'be quiet! Pure Base 500',  8, 15, 2, 'Mid Tower, Tempered Glass, 3x Pure Wings 2 Fans, ATX',         950000,  1200000, 4,  2, 'pcs', 'aktif');
+  ('CAS-FRA-001', 'Fractal Design Meshify C', 8, 14, 2, 'Mid Tower, Mesh Front, 2x Fans included, ATX/mATX/ITX',        850000,  1100000, 6,  2, 'pcs', 'https://m.media-amazon.com/images/I/71yibFOfAcL._AC_SL1500_.jpg', 'aktif'),
+  ('CAS-BEQ-001', 'be quiet! Pure Base 500',  8, 15, 2, 'Mid Tower, Tempered Glass, 3x Pure Wings 2 Fans, ATX',         950000,  1200000, 4,  2, 'pcs', 'https://m.media-amazon.com/images/I/71y4B+3kGRL._AC_SL1500_.jpg', 'aktif');
 
 -- Transaksi Masuk (Stok awal)
 INSERT INTO transaksi_masuk (part_id, supplier_id, user_id, no_invoice, jumlah, harga_satuan, total_harga, tgl_masuk, keterangan) VALUES

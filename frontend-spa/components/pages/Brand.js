@@ -168,7 +168,7 @@ export default {
               <tr v-for="b in filteredBrands" :key="b.id" class="hover:bg-gray-50/50">
                 <td class="text-center">
                   <div class="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-0.5 overflow-hidden shadow-xs mx-auto">
-                    <img v-if="b.logo_url" :src="b.logo_url" :alt="b.nama_brand" class="max-w-full max-h-full object-contain" />
+                    <img v-if="b.logo_url" :src="b.logo_url" :alt="b.nama_brand" class="max-w-full max-h-full object-contain" referrerpolicy="no-referrer" @error="b.logo_url = null" />
                     <span v-else class="text-[10px] text-gray-400 font-bold">{{ b.nama_brand.substring(0, 2).toUpperCase() }}</span>
                   </div>
                 </td>

@@ -48,7 +48,6 @@ export default {
       <!-- User Greeting -->
       <div class="sidebar-greeting" v-if="user">
         <div class="sidebar-greeting-name">Selamat Datang,<br><strong>{{ user.nama }}</strong></div>
-        <div class="sidebar-greeting-role">{{ user.role === 'admin' ? 'Administrator' : 'Staff Gudang' }}</div>
       </div>
 
       <!-- Navigation -->

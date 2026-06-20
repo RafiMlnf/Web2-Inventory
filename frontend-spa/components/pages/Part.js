@@ -240,9 +240,15 @@ export default {
                   <code class="text-xs font-mono text-gray-600 bg-gray-100 px-1.5 py-0.5 rounded">{{ part.kode_part }}</code>
                 </td>
                 <td>
-                  <div>
-                    <div class="font-semibold text-gray-900 text-xs">{{ part.nama_part }}</div>
-                    <div class="text-[10px] text-gray-400 mt-0.5">Supplier: {{ part.nama_supplier }}</div>
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-white border border-gray-150 flex items-center justify-center p-1 overflow-hidden flex-shrink-0 shadow-xs">
+                      <img v-if="part.gambar_url" :src="part.gambar_url" :alt="part.nama_part" class="max-w-full max-h-full object-contain" referrerpolicy="no-referrer" @error="part.gambar_url = null" />
+                      <span v-else class="text-gray-300" v-html="icons.box"></span>
+                    </div>
+                    <div>
+                      <div class="font-semibold text-gray-900 text-xs">{{ part.nama_part }}</div>
+                      <div class="text-[10px] text-gray-400 mt-0.5">Supplier: {{ part.nama_supplier }}</div>
+                    </div>
                   </div>
                 </td>
                 <td>
@@ -252,7 +258,7 @@ export default {
                   </div>
                   <div class="flex items-center gap-1 mt-0.5">
                     <div class="w-3.5 h-3.5 rounded bg-white border border-gray-200 flex items-center justify-center p-0.5 overflow-hidden flex-shrink-0">
-                      <img v-if="part.brand_logo_url" :src="part.brand_logo_url" :alt="part.nama_brand" class="max-w-full max-h-full object-contain" />
+                      <img v-if="part.brand_logo_url" :src="part.brand_logo_url" :alt="part.nama_brand" class="max-w-full max-h-full object-contain" referrerpolicy="no-referrer" @error="part.brand_logo_url = null" />
                       <span v-else class="text-[7px] font-bold text-gray-400">{{ part.nama_brand.substring(0, 1).toUpperCase() }}</span>
                     </div>
                     <span class="text-[11px] text-gray-500 font-medium">{{ part.nama_brand }}</span>

@@ -1,5 +1,5 @@
 // axios-config.js — Axios interceptors: inject Bearer token + handle 401
-const BASE_URL = 'http://localhost/UASWeb2/backend-api/public'
+const BASE_URL = 'http://localhost:85/Web2-Inventory/backend-api/public'
 
 axios.defaults.baseURL = BASE_URL
 

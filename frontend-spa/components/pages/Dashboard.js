@@ -204,7 +204,7 @@ export default {
                   </span>
                   <span>·</span>
                   <div class="w-3.5 h-3.5 rounded bg-white border border-gray-200 flex items-center justify-center p-0.5 overflow-hidden flex-shrink-0">
-                    <img v-if="item.brand_logo_url" :src="item.brand_logo_url" :alt="item.nama_brand" class="max-w-full max-h-full object-contain" />
+                    <img v-if="item.brand_logo_url" :src="item.brand_logo_url" :alt="item.nama_brand" class="max-w-full max-h-full object-contain" referrerpolicy="no-referrer" @error="item.brand_logo_url = null" />
                     <span v-else class="text-[7px] font-bold text-gray-400">{{ item.nama_brand.substring(0, 1).toUpperCase() }}</span>
                   </div>
                   <span>{{ item.nama_brand }}</span>
