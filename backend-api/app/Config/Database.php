@@ -200,5 +200,12 @@ class Database extends Config
         if (ENVIRONMENT === 'testing') {
             $this->defaultGroup = 'tests';
         }
+
+        // Aktifkan SSL secara otomatis jika terhubung ke Aiven SQL (bukan localhost)
+        if (isset($this->default['hostname']) && !in_array($this->default['hostname'], ['localhost', '127.0.0.1', ''])) {
+            $this->default['encrypt'] = [
+                'ssl_verify' => false
+            ];
+        }
     }
 }

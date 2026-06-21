@@ -1,0 +1,11 @@
+# Redirect all requests to the public/ folder for security and clean URLs
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Block direct access to sensitive files
+    RewriteRule ^(\.env|app|system|writable|tests|composer\.(json|lock|phar)) - [F,L]
+    
+    # Rewrite other requests to the public directory
+    RewriteCond %{REQUEST_URI} !^/backend-api/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

@@ -1,19 +1,21 @@
 // axios-config.js — Axios interceptors: inject Bearer token + handle 401
-let BASE_URL = 'http://localhost/Web2-Inventory/backend-api/public'
+let BASE_URL = 'http://localhost/UASWeb2/backend-api/public'
 
-if (window.location.hostname.includes('vercel.app')) {
-  // TODO: Ganti URL ini dengan URL backend Render Anda setelah di-deploy
-  BASE_URL = 'https://your-backend-name.onrender.com'
-} else if (window.location.protocol.startsWith('http')) {
+if (window.location.protocol.startsWith('http')) {
   const origin = window.location.origin
   const pathname = window.location.pathname
-  let projectPath = ''
-  if (pathname.includes('/frontend-spa')) {
-    projectPath = pathname.substring(0, pathname.indexOf('/frontend-spa'))
+  
+  if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
+    // Jalur lokal (XAMPP / Laragon)
+    let projectPath = '/UASWeb2'
+    if (pathname.includes('/Web2-Inventory')) {
+      projectPath = '/Web2-Inventory'
+    }
+    BASE_URL = `${origin}${projectPath}/backend-api/public`
   } else {
-    projectPath = pathname.includes('/Web2-Inventory') ? '/Web2-Inventory' : '/UASWeb2'
+    // Jalur produksi di InfinityFree (Frontend di root, Backend di /backend-api)
+    BASE_URL = `${origin}/backend-api/public`
   }
-  BASE_URL = `${origin}${projectPath}/backend-api/public`
 }
 
 axios.defaults.baseURL = BASE_URL
