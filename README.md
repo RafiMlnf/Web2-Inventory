@@ -1,7 +1,8 @@
 # Omniacomp Inventory
 
 <p align="center">
-  <img src="frontend-spa/assets/img/logoweb.png" alt="Omniacomp Logo" width="200" />
+  <img src="frontend-spa/assets/img/logoweb.png" alt="Omniacomp Logo" width="200" /><br>
+  <a href="[Tautan Demo]">Link Demo Aplikasi</a> | <a href="[Tautan Video]">Link Video Presentasi</a>
 </p>
 
 ## Deskripsi Proyek
@@ -126,9 +127,4 @@ Gunakan akun berikut untuk menguji sistem:
 | Staff (Baru) | staff | 123 |
 | Administrator (Lama) | admin@inventorypc.com | password123 |
 
----
 
-## Tautan Demo dan Presentasi
-
-- Link Demo Aplikasi: [Tautan Demo]
-- Link Video Presentasi: [Tautan Video]
