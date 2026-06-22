@@ -42,7 +42,7 @@ export default {
       <div class="login-brand">
         <div class="login-brand-inner">
           <div style="margin-bottom: 36px;">
-            <img src="./assets/img/logoweb.png" alt="Logo" style="height: 52px; object-fit: contain;" />
+            <img src="./assets/img/logoweb.png" alt="Logo" style="height: 52px; object-fit: contain; background: #ffffff; padding: 6px; border-radius: 8px;" />
           </div>
           <h2>Kelola inventaris<br>komponen PC dengan<br><span>mudah dan efisien.</span></h2>
           <p>Pantau stok, kelola transaksi, dan kendalikan seluruh gudang dari satu dasbor terpusat.</p>
@@ -72,7 +72,7 @@ export default {
 
           <!-- Logo mobile -->
           <div class="login-card-logo">
-            <img src="./assets/img/logoweb.png" alt="Logo" style="height: 32px; object-fit: contain;" />
+            <img src="./assets/img/logoweb.png" alt="Logo" style="height: 32px; object-fit: contain; background: #ffffff; padding: 4px; border-radius: 6px;" />
             <span>Omniacomp</span>
           </div>
 
