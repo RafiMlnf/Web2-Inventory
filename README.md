@@ -4,7 +4,7 @@
      
 ---
       
-Link Demo      : https://exenpcinventory.freedev.app/    
+Link Demo      : https://omniacomprafimf.freedev.app/
 Link Youtube   :
   
 ## Deskripsi Proyek

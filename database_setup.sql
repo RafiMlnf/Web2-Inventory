@@ -132,9 +132,6 @@ CREATE TABLE IF NOT EXISTS transaksi_keluar (
   CONSTRAINT fk_tk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ============================================================
--- DATA DUMMY
--- ============================================================
 
 -- Users (password = MD5("password123") untuk demo)
 INSERT INTO users (nama, email, password, role) VALUES
