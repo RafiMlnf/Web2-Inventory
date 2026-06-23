@@ -55,6 +55,18 @@ Sistem menggunakan database relational MySQL/MariaDB dengan nama database invent
 
 ---
 
+## Uji Coba Error 401 Postman (Proteksi Token Gagal)
+
+Berikut adalah hasil pengujian endpoint terproteksi (seperti `POST /api/part`) menggunakan Postman untuk memvalidasi proteksi token:
+
+* **Skenario A: Tanpa Mengirimkan Token (No Auth)**
+  ![Error 401 No Auth](frontend-spa/assets/img/401(no-auth).png)
+
+* **Skenario B: Menggunakan Token Salah (Invalid Bearer Token)**
+  ![Error 401 Bearer Token](frontend-spa/assets/img/401(bearer-token).png)
+
+---
+
 ## Screenshot Antarmuka
 
 Berikut adalah tampilan antarmuka aplikasi Omniacomp:
@@ -74,14 +86,6 @@ Berikut adalah tampilan antarmuka aplikasi Omniacomp:
 
 ### 5. Tabel Visualisasi Data Komponen PC (Transaksi Masuk)
 ![Tabel Visualisasi Data Komponen PC](frontend-spa/assets/img/tabel.png)
-
-Berikut adalah hasil pengujian endpoint terproteksi (seperti `POST /api/part`) menggunakan Postman untuk memvalidasi proteksi token:
-
-* **Skenario A: Tanpa Mengirimkan Token (No Auth)**
-  ![Error 401 No Auth](frontend-spa/assets/img/401(no-auth).png)
-
-* **Skenario B: Menggunakan Token Salah (Invalid Bearer Token)**
-  ![Error 401 Bearer Token](frontend-spa/assets/img/401(bearer-token).png)
 
 ---
 
